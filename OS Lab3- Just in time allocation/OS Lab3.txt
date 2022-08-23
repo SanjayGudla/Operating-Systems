@@ -1,0 +1,51 @@
+
+Problem 1:-Printing pagetable entries
+
+Steps implemented:-
+
+ 1)We have to Define void vmprint(pagetable_t pagetable) in kernel/vm.c to print page table entries
+
+ 2)We have to Print the address of argument int the first line. 
+
+ 3)Then we have to call a helper function from vmprint which takes both pagetable_t pagetable and int level as arguments
+
+ 4)We have to Implement the above helper function recursively using the idea given in freewalk
+
+ 5)The helperfunction prints our required pagetable entries.
+
+ 6)Now, We have to add this void vmprint(pagetable_t) prototype in defs.h
+
+ 7)Then We should insert a call to this vmprint function in exec.c. So that this will be called.
+
+ 8) Once we have done all the steps, type make qemu and this will print the pagetable for the first user process.
+
+
+Problem 2:-Eliminating allocation from sbrk()
+
+Steps implemented:-
+
+1)In this , we have to delete page allocation from the sbrk(n) system call.
+
+2) For this we have to go to kernel/sysproc.c in which sbrk(n) system call is present
+
+3) Now , we have to delete the page allocation. For that we comment out the call growproc(n) so that memory is not allocated but we will increase the size of process by n and we return the oldsize.
+
+4) Once the above steps are done, type make qemu and then echo hi.
+
+5) Then error message of uvmunmap will be printed.
+
+
+Problem 3:- Lazy page Allocation
+
+Steps implemented:-
+
+1) In this problem,we have to respond to a page fault from user space by mapping a newly-allocated page at the faulting address.
+
+2) For this we modify the code in usertrap() function in kernel/trap.c.
+
+3) Page_fault can be checked by r_scause.
+
+4) Here instead of showing error, we allocate memory at the pagefault address
+
+5) We have to call kalloc() and mappages(). We have to allocate memory for 1 page at this fault address location.
+
